@@ -1,0 +1,12 @@
+{
+  "name": "where-are-my-tweets",
+  "version": "0.0.0",
+  "description": "WhereAreMyTweets",
+  "main": "app.js",
+  "author": {
+    "name": "anton"
+  },
+  "dependencies": {
+    "nightmare": "^2.10.0"
+  }
+}
