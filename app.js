@@ -7,8 +7,8 @@ const nightmare = Nightmare({ show: true });
 var language = 'es';
 var searchTerm = "#bitcoin";
 var daysToCover = 1;
-var dateFrom = moment(new Date(2017, 10, 2));
-var dateTo = moment(new Date(2017, 10, 3));
+var dateFrom = moment(new Date(2017, 9, 2));
+var dateTo = moment(new Date(2017, 9, 3));
 
 var baseUrl = "https://twitter.com/search?l=%s&q=%s&src=typd";
 var query = encodeURIComponent(util.format("%s since:%s until:%s",
