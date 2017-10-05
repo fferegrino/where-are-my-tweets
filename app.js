@@ -1,9 +1,9 @@
-var nightmare = require('nightmare');
-var util = require('util');
-var moment = require('moment');
+var nightmare = require("nightmare");
+var util = require("util");
+var moment = require("moment");
 var $ = require("jquery");
-var fs = require('fs');
-var schedule = require('node-schedule');
+var fs = require("fs");
+var schedule = require("node-schedule");
 
 var language = "en";
 var searchTerm = "#bitcoin";
