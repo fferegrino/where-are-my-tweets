@@ -20,10 +20,14 @@ var actualUrl = util.format(baseUrl,
     language,
     query);
 
-console.log(actualUrl);
+// console.log(actualUrl);
 
-//nightmare
-//    .goto('https://twitter.com/search?l=es&q=%23bitcoin%20since%3A2017-09-24%20until%3A2017-09-27&src=typd')
+nightmare
+    .goto(actualUrl)
+    .wait('.stream-items')
+    .evaluate(() => {
+        return document.getElementsByClassName("stream-items")[0];
+    })
 //    .type('input[name=ands]', 'github nightmare')
 //    .type('input[name=since]', '2017-10-03')
 //    .type('input[name=until]', '2017-10-04')
@@ -31,7 +35,7 @@ console.log(actualUrl);
 //    .wait('#r1-0 a.result__a')
 //    .evaluate(() => document.querySelector('#r1-0 a.result__a').href)
 //    .end()
-//    .then(console.log)
-//    .catch((error) => {
-//        console.error('Search failed:', error);
-//    });
+   .then(console.log)
+   .catch((error) => {
+       console.error('Search failed:', error);
+   });
