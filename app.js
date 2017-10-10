@@ -7,7 +7,8 @@ var schedule = require("node-schedule");
 
 var language = "en";
 var searchTerm = "#bitcoin";
-var dateFrom = moment(new Date(2017, 9, 3));
+var dateFrom = moment(new Date(2017, 9, 10));
+var dateTo = moment(new Date(2015, 9, 10));
 
 var baseUrl = "https://twitter.com/search?l=%s&q=%s&src=typd";
 
@@ -35,12 +36,16 @@ var job = schedule.scheduleJob("*/10 * * * * *", function () {
                 tweetDivs = $("div.tweet");
             for (var i = 0; i < tweetDivs.length; i++) {
                 var tweetDiv = $(tweetDivs[i]);
-                var tweetId = tweetDivs.attr("data-tweet-id");
+                var tweetId = tweetDiv.attr("data-tweet-id");
                 var screenName = tweetDiv.find("span.username").text();
                 var fullName = tweetDiv.find("strong.fullname").text();
                 var timeStamp = tweetDiv.find("span._timestamp").attr("data-time");
                 var tweetText = tweetDiv.find("p.tweet-text").text();
                 var rawHtml = tweetDiv.find("p.tweet-text").html();
+                var actionCount = tweetDiv.find(".ProfileTweet-actionCount");
+                var replies = $(actionCount[0]).attr("data-tweet-stat-count");
+                var retweets = $(actionCount[1]).attr("data-tweet-stat-count");
+                var likes = $(actionCount[2]).attr("data-tweet-stat-count");
                 var tweet =
                     {
                         tweetId: tweetId,
@@ -48,7 +53,10 @@ var job = schedule.scheduleJob("*/10 * * * * *", function () {
                         fullName: fullName,
                         tweetText: tweetText,
                         rawHtml: rawHtml,
-                        timestamp: timeStamp
+                        timestamp: timeStamp,
+                        replies: parseInt(replies),
+                        retweets: parseInt(retweets),
+                        likes: parseInt(likes)
                     };
                 tweets.push(tweet);
             }
@@ -56,7 +64,7 @@ var job = schedule.scheduleJob("*/10 * * * * *", function () {
         })
         .end()
         .then(function (result) {
-            fs.writeFile(dateFrom.format("YYYY-MM-DD") + "-tweets.json", JSON.stringify(result), function (err) {
+            fs.writeFile("data/" + dateFrom.format("YYYY-MM-DD") + "-tweets.json", JSON.stringify(result), function (err) {
                 if (err) {
                     console.log(err);
                 } else {
@@ -64,4 +72,11 @@ var job = schedule.scheduleJob("*/10 * * * * *", function () {
                 }
             });
         });
+
+
+
+    if (dateTo.isAfter(dateFrom)) {
+        console.log("Trabajo terminado");
+        job.cancel();
+    }
 });
