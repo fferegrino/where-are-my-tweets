@@ -4,11 +4,14 @@ var moment = require("moment");
 var $ = require("jquery");
 var fs = require("fs");
 var schedule = require("node-schedule");
+var slugify = require('slug')
 
 var language = "en";
-var searchTerm = "#bitcoin";
-var dateFrom = moment(new Date(2017, 9, 10));
-var dateTo = moment(new Date(2015, 9, 10));
+var searchTerm = "from:@breakingnews";
+// Year, Month (zero based), Day
+var dateFrom = moment(new Date(2017, 0, 1));
+var dateTo = moment(new Date(2016, 11, 25));
+var slug = slugify(searchTerm)
 
 var baseUrl = "https://twitter.com/search?l=%s&q=%s&src=typd";
 
@@ -64,7 +67,7 @@ var job = schedule.scheduleJob("*/10 * * * * *", function () {
         })
         .end()
         .then(function (result) {
-            fs.writeFile("data/" + dateFrom.format("YYYY-MM-DD") + "-tweets.json", JSON.stringify(result), function (err) {
+            fs.writeFile("data/" + dateFrom.format("YYYY-MM-DD") + "-" + slug + "-tweets.json", JSON.stringify(result), function (err) {
                 if (err) {
                     console.log(err);
                 } else {
