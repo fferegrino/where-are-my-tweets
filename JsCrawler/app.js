@@ -7,13 +7,13 @@ var schedule = require("node-schedule");
 var slugify = require('slug')
 
 var language = "en";
-var searchTerm = "from:@breakingnews";
+var searchTerm = "#bitcoin";
 // Year, Month (zero based), Day
-var dateFrom = moment(new Date(2017, 0, 1));
-var dateTo = moment(new Date(2016, 11, 25));
+var dateFrom = moment(new Date(2017, 10, 15));
+var dateTo = moment(new Date(2012, 11, 31));
 var slug = slugify(searchTerm)
 
-var baseUrl = "https://twitter.com/search?l=%s&q=%s&src=typd";
+var baseUrl = "https://twitter.com/search?f=tweets&l=%s&q=%s&src=typd";
 
 var job = schedule.scheduleJob("*/10 * * * * *", function () {
 
