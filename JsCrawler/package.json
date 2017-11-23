@@ -7,6 +7,7 @@
     "name": "anton"
   },
   "dependencies": {
+    "argparse": "^1.0.9",
     "jquery": "^3.2.1",
     "moment": "^2.18.1",
     "nightmare": "^2.10.0",
