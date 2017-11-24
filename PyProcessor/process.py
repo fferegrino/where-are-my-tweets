@@ -7,10 +7,6 @@ from pandas import DataFrame
 import datetime
 import math
 
-def date_ms(timestamp):
-    return datetime.datetime.utcfromtimestamp(timestamp).strftime('%Y-%m-%d %H:%M:%S')
-
-
 def find_boundaries(timestamp):
     first = math.floor(timestamp / 86400) * 86400
     second = first + ((24 * 60 * 60) - 1)
@@ -23,7 +19,7 @@ def vader_sentiment(text):
     return sia.polarity_scores(text)["compound"]
 
 x = []
-values = np.linspace(-1, 1, 21)
+values = np.linspace(-1.05, 1.05, 22)
 for a, b in zip(values[:-1], values[1:]):
    x.append([a, b, a + 0.05])
 x = np.array(x)
@@ -40,6 +36,7 @@ def get_categorical_value(value):
    filter1 = filter1[value <= filter1[:,1]]
    return filter1[0,2]
 
+# Configure Mongo client
 client = MongoClient('localhost', 27017)
 db = client['twitter_db']
 collection = db['twitter_bitcoin']
